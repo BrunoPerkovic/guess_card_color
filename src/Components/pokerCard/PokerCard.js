@@ -1,9 +1,14 @@
 import React from "react";
 import "./PokerCard.scss";
-const PokerCard = ({ color }) => {
+const PokerCard = ({ suit, action, color }) => {
   return (
-    <a>
-      <img src={color} alt="poker card" />
+    <a
+      href="#"
+      onClick={() => {
+        action(color);
+      }}
+    >
+      <img src={suit} alt="poker card" />
     </a>
   );
 };
