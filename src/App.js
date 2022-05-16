@@ -22,19 +22,25 @@ function App() {
     <div className="App">
       <div className="card">
         <div className="card__option">
-          <PokerCard color={spades} />
-          <PokerCard color={club} />
-          <PokerCard color={heart} />
-          <PokerCard color={diamond} />
+          <div className="card__option--row">
+            <PokerCard color={spades} />
+            <PokerCard color={club} />
+          </div>
+
+          <div className="card__option--row">
+            <PokerCard color={heart} />
+            <PokerCard color={diamond} />
+          </div>
         </div>
 
         <div className="card__deck">
           <p>Remaining cards: {remainingCards} </p>
           <img src="./Images/pokerback.jpg" alt="deck image" />
+          <div className="card__deck--graveyard">odigrane karte</div>
         </div>
-
-        <div className="card__graveyard">odigrane karte</div>
       </div>
+
+      <div className="score">tu ide koliko san puta pogodia boju karte</div>
     </div>
   );
 }
