@@ -7,81 +7,96 @@ import heart from "./Images/heart.jpg";
 import spade from "./Images/spade.jpg";
 import pokerback from "./Images/pokerback.jpg";
 import Card from "react-playing-card";
+import { act } from "react-dom/test-utils";
 
 const suits = ["H", "D", "S", "C"];
 const ranks = [
-  "A",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
+	"A",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"10",
+	"J",
+	"Q",
+	"K",
 ];
 
 const deck = [];
 suits.forEach((suit) => {
-  ranks.forEach((rank, i) => {
-    deck.push(<Card suit={suit} rank={rank} key={i} />);
-  });
+	ranks.forEach((rank, i) => {
+		deck.push(<Card suit={suit} rank={rank} key={i} />);
+	});
 });
 console.log(deck);
 
 function App() {
-  const [selectCard, setSelectCard] = useState();
-  const [remainingCards, setRemainingCards] = useState(53);
-  const [score, setScore] = useState(0);
-  const [poppedCard, setPoppedCard] = useState();
+	const [selectCard, setSelectCard] = useState();
+	const [remainingCards, setRemainingCards] = useState(deck.length);
+	const [score, setScore] = useState(0);
+	const [poppedCard, setPoppedCard] = useState(<PokerCard suit={pokerback} />);
 
-  const showGeneratedCard = () => {
-    setPoppedCard(deck.splice(Math.floor(Math.random() * deck.length), 1));
-    console.log(poppedCard);
-  };
+	const resetStates = () => {
+		setRemainingCards(deck.length);
+		setScore(0);
+		setPoppedCard(<PokerCard suit={pokerback} />);
+	};
 
-  const handleSelectCard = (color) => {
-    setRemainingCards(remainingCards - 1);
-    showGeneratedCard();
-  };
+	const showGeneratedCard = () => {
+		setPoppedCard(deck.splice(Math.floor(Math.random() * deck.length), 1));
+		console.log(poppedCard);
+	};
 
-  const handleScore = () => {
-    setScore(score + 1);
-  };
+	const handleSelectCard = (color) => {
+		setRemainingCards(remainingCards - 1);
+		showGeneratedCard();
+		if (color === "S") {
+			handleScore();
+		} else if (color === "D") {
+			handleScore();
+		} else if (color === "H") {
+			handleScore();
+		} else if (color === "C") {
+			handleScore();
+		}
 
-  return (
-    <div className="App">
-      <div className="mojCard">
-        <div className="mojCard__option">
-          <div className="mojCard__option--row">
-            <PokerCard suit={spade} action={handleSelectCard} color="spade" />
-            <PokerCard suit={club} action={handleSelectCard} color="club" />
-          </div>
+		/* 		console.log(`moja boja je ${suit}`);
+		 */
+	};
 
-          <div className="mojCard__option--row">
-            <PokerCard suit={heart} action={handleSelectCard} color="heart" />
-            <PokerCard
-              suit={diamond}
-              action={handleSelectCard}
-              color="diamond"
-            />
-          </div>
-        </div>
+	const handleScore = () => {
+		setScore(score + 1);
+	};
 
-        <div className="score">Koliko si pogodia karata: {score} </div>
+	return (
+		<div className="App">
+			<div className="mojCard">
+				<div className="mojCard__option">
+					<div className="mojCard__option--row">
+						<PokerCard suit={spade} action={handleSelectCard} color="S" />
+						<PokerCard suit={club} action={handleSelectCard} color="C" />
+					</div>
 
-        <div className="mojCard__deck">
-          <p>Remaining cards: {remainingCards} </p>
-          <PokerCard suit={pokerback} />
-          <div className="mojCard__deck--graveyard">{poppedCard}</div>
-        </div>
-      </div>
-    </div>
-  );
+					<div className="mojCard__option--row">
+						<PokerCard suit={heart} action={handleSelectCard} color="H" />
+						<PokerCard suit={diamond} action={handleSelectCard} color="D" />
+					</div>
+				</div>
+
+				<div className="score">Koliko si pogodia karata: {score} </div>
+
+				<div className="mojCard__deck">
+					<p>Remaining cards: {remainingCards} </p>
+					<PokerCard suit={pokerback} />
+					<div className="mojCard__deck--graveyard">{poppedCard}</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default App;
