@@ -46,14 +46,14 @@ function App() {
 		setPoppedCard(<PokerCard suit={pokerback} />);
 	};
 
-	const showGeneratedCard = () => {
+	/* 	const showGeneratedCard = () => {
 		setPoppedCard(deck.splice(Math.floor(Math.random() * deck.length), 1));
 		console.log(poppedCard);
-	};
+	}; */
 
 	const handleSelectCard = (color) => {
+		setPoppedCard(deck.splice(Math.floor(Math.random() * deck.length), 1));
 		setRemainingCards(remainingCards - 1);
-		showGeneratedCard();
 		if (color === "S") {
 			handleScore();
 		} else if (color === "D") {
