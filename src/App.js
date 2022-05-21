@@ -47,15 +47,10 @@ function App() {
   };
 
   const handleSelectCard = (color) => {
-    setPoppedCard(deck.splice(Math.floor(Math.random() * deck.length), 1));
+    let popped = deck.splice(Math.floor(Math.random() * deck.length), 1);
+    setPoppedCard(popped);
     setRemainingCards(remainingCards - 1);
-    if (color === "S") {
-      handleScore();
-    } else if (color === "D") {
-      handleScore();
-    } else if (color === "H") {
-      handleScore();
-    } else if (color === "C") {
+    if (color === popped[0].props.suit) {
       handleScore();
     }
   };
