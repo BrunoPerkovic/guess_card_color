@@ -3,7 +3,7 @@
   height: 100vh;
   background: linear-gradient(135deg, lightblue, pink);
 
-  .mojCard {
+  .board {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -16,6 +16,7 @@
       &--row {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
       }
     }
 
