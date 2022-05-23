@@ -7,8 +7,8 @@ import heart from "./Images/heart.jpg";
 import spade from "./Images/spade.jpg";
 import pokerback from "./Images/pokerback.jpg";
 import Card from "react-playing-card";
-import { act } from "react-dom/test-utils";
-
+/* import { act } from "react-dom/test-utils";
+ */
 const suits = ["H", "D", "S", "C"];
 const ranks = [
   "A",
