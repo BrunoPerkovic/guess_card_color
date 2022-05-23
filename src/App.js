@@ -35,7 +35,6 @@ suits.forEach((suit) => {
 console.log(deck);
 
 function App() {
-  const [selectCard, setSelectCard] = useState();
   const [remainingCards, setRemainingCards] = useState(deck.length);
   const [score, setScore] = useState(0);
   const [poppedCard, setPoppedCard] = useState(<PokerCard suit={pokerback} />);
@@ -52,6 +51,10 @@ function App() {
     setRemainingCards(remainingCards - 1);
     if (color === popped[0].props.suit) {
       handleScore();
+    }
+
+    if (remainingCards === 0) {
+      resetStates();
     }
   };
 
