@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PokerCard from "./Components/PokerCard/PokerCard";
 import club from "./Images/club.jpg";
 import diamond from "./Images/diamond.jpg";
@@ -26,35 +26,48 @@ const ranks = [
   "K",
 ];
 
-const deck = [];
-suits.forEach((suit) => {
-  ranks.forEach((rank, i) => {
-    deck.push(<Card suit={suit} rank={rank} key={i} />);
-  });
-});
-console.log(deck);
-
 function App() {
-  const [remainingCards, setRemainingCards] = useState(deck.length);
+  const [remainingCards, setRemainingCards] = useState(0);
   const [score, setScore] = useState(0);
   const [poppedCard, setPoppedCard] = useState(<PokerCard suit={pokerback} />);
+  const [deck, setDeck] = useState([]);
+
+  useEffect(() => {
+    let currDeck = createDeck();
+    setDeck(currDeck);
+    setRemainingCards(currDeck.length);
+  }, []);
+
+  console.log(deck);
+  function createDeck() {
+    let currDeck = [];
+    suits.forEach((suit) => {
+      ranks.forEach((rank, i) => {
+        currDeck.push(<Card suit={suit} rank={rank} key={i} />);
+      });
+    });
+    return currDeck;
+  }
 
   const resetStates = () => {
-    setRemainingCards(deck.length);
+    let currDeck = createDeck();
+    setDeck(currDeck);
+    setRemainingCards(currDeck.length);
     setScore(0);
     setPoppedCard(<PokerCard suit={pokerback} />);
   };
 
   const handleSelectCard = (color) => {
+    if (remainingCards === 0) {
+      resetStates();
+      return;
+    }
+
     let popped = deck.splice(Math.floor(Math.random() * deck.length), 1);
     setPoppedCard(popped);
     setRemainingCards(remainingCards - 1);
     if (color === popped[0].props.suit) {
       handleScore();
-    }
-
-    if (remainingCards === 0) {
-      resetStates();
     }
   };
 
@@ -77,7 +90,10 @@ function App() {
           </div>
         </div>
 
-        <div className="score">Koliko si pogodia karata: {score} </div>
+        <div>
+          <div className="score">Koliko si pogodia karata: {score} </div>
+          <button onClick={() => resetStates()}>Reset Game</button>
+        </div>
 
         <div className="board__deck">
           <p>Remaining cards: {remainingCards} </p>
