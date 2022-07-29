@@ -1,6 +1,6 @@
 import "./App.scss";
 import { useState, useEffect } from "react";
-import PokerCard from "./Components/PokerCard/PokerCard";
+import PokerCard from "./Components/PokerCard/PokerCard.js";
 import club from "./Images/club.jpg";
 import diamond from "./Images/diamond.jpg";
 import heart from "./Images/heart.jpg";
